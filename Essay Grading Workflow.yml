@@ -1,0 +1,400 @@
+app:
+  description: ''
+  icon: "\U0001F916"
+  icon_background: '#FFEAD5'
+  mode: workflow
+  name: 'Essay Grading Workflow  '
+workflow:
+  features:
+    file_upload:
+      image:
+        enabled: false
+        number_limits: 3
+        transfer_methods:
+        - local_file
+        - remote_url
+    opening_statement: ''
+    retriever_resource:
+      enabled: false
+    sensitive_word_avoidance:
+      enabled: false
+    speech_to_text:
+      enabled: false
+    suggested_questions: []
+    suggested_questions_after_answer:
+      enabled: false
+    text_to_speech:
+      enabled: false
+      language: ''
+      voice: ''
+  graph:
+    edges:
+    - data:
+        sourceType: start
+        targetType: llm
+      id: 1711067409646-1711067429397
+      source: '1711067409646'
+      sourceHandle: source
+      target: '1711067429397'
+      targetHandle: target
+      type: custom
+    - data:
+        sourceType: llm
+        targetType: llm
+      id: 1711067429397-1711067578643
+      source: '1711067429397'
+      sourceHandle: source
+      target: '1711067578643'
+      targetHandle: target
+      type: custom
+    - data:
+        sourceType: llm
+        targetType: llm
+      id: 1711067578643-1711067817657
+      source: '1711067578643'
+      sourceHandle: source
+      target: '1711067817657'
+      targetHandle: target
+      type: custom
+    - data:
+        sourceType: llm
+        targetType: llm
+      id: 1711067817657-1711068087661
+      source: '1711067817657'
+      sourceHandle: source
+      target: '1711068087661'
+      targetHandle: target
+      type: custom
+    - data:
+        isInIteration: false
+        sourceType: llm
+        targetType: template-transform
+      id: 1711068087661-source-1720344804718-target
+      source: '1711068087661'
+      sourceHandle: source
+      target: '1720344804718'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: template-transform
+        targetType: end
+      id: 1720344804718-source-1711068257370-target
+      source: '1720344804718'
+      sourceHandle: source
+      target: '1711068257370'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    nodes:
+    - data:
+        desc: ''
+        selected: false
+        title: Start
+        type: start
+        variables:
+        - label: Input Text
+          max_length: null
+          options: []
+          required: true
+          type: paragraph
+          variable: input_text
+        - label: topic
+          max_length: null
+          options: []
+          required: true
+          type: paragraph
+          variable: topic
+        - label: rubric
+          max_length: null
+          options: []
+          required: true
+          type: paragraph
+          variable: rubric
+      dragging: false
+      height: 142
+      id: '1711067409646'
+      position:
+        x: 79.5
+        y: 2843.5
+      positionAbsolute:
+        x: 79.5
+        y: 2843.5
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        desc: Summarize student essay
+        model:
+          completion_params: {}
+          mode: chat
+          name: gemini-1.5-flash-latest
+          provider: google
+        prompt_template:
+        - id: 4c08e889-b9cb-49a1-b941-bd156f4b2329
+          role: system
+          text: "<Task>  Summarize the main points and arguments of the student essay.\n\
+            \n<Input Text> \n{{#1711067409646.input_text#}}\n\n<Summary>"
+        selected: false
+        title: LLM
+        type: llm
+        variables:
+        - value_selector:
+          - '1711067409646'
+          - input_text
+          variable: input_text
+        vision:
+          configs:
+            detail: high
+          enabled: true
+      dragging: false
+      height: 128
+      id: '1711067429397'
+      position:
+        x: 373.6116779900742
+        y: 2606.114152030231
+      positionAbsolute:
+        x: 373.6116779900742
+        y: 2606.114152030231
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        desc: Compare to requirement
+        model:
+          completion_params:
+            frequency_penalty: 0.3
+            max_tokens: 2101
+            presence_penalty: 0.2
+            temperature: 0.5
+            top_p: 0.85
+          mode: chat
+          name: gemini-1.5-flash-latest
+          provider: google
+        prompt_template:
+        - id: 3a80e17e-9b2e-426e-986d-94e3ec2d80f3
+          role: system
+          text: "<Task> You are a professional teaching assistant proficient in evaluating\
+            \ student essays and professional academic papers. Please compare the\
+            \ summary of the student essay and the essay topic requirements, Assess\
+            \ if the essay fully addresses the topic, partially addresses it, or is\
+            \ entirely off-topic.\n<Topic Requirement> \n{{#1711067409646.topic#}}\n\
+            <Student Essay Summary> \n{{#1711067409646.input_text#}}\n<Assessment> "
+        selected: false
+        title: LLM 2
+        type: llm
+        variables:
+        - value_selector:
+          - '1711067409646'
+          - input_text
+          variable: input_text
+        vision:
+          configs:
+            detail: high
+          enabled: true
+      dragging: false
+      height: 128
+      id: '1711067578643'
+      position:
+        x: 656.6116779900743
+        y: 2606.114152030231
+      positionAbsolute:
+        x: 656.6116779900743
+        y: 2606.114152030231
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        desc: Detailed Feedback
+        model:
+          completion_params:
+            frequency_penalty: 0
+            max_tokens: 2601
+            presence_penalty: 0
+            temperature: 0.7
+            top_p: 1
+          mode: chat
+          name: gemini-1.5-flash-latest
+          provider: google
+        prompt_template:
+        - id: 21a7126f-e5f9-4dc5-a3c1-46d2d3aa46e5
+          role: system
+          text: "<Task>\nYou are a professional teaching assistant proficient in evaluating\
+            \ student essays and professional academic papers. Base on the student's\
+            \ essay, initial summary/relevance assessment, please provide detailed\
+            \ feedback.\nIf on-topic, provide feedback on: - Strength of arguments\n\
+            - Quality of evidence and sources\n- Clarity and organization of writing\n\
+            - Grammar and mechanics\nIf partially on-topic, identify areas of deviation\
+            \ and suggest improvements.\nIf off-topic, provide constructive feedback\
+            \ on how to refocus the essay.\n\n<Student Essay Summary> \n{{#1711067409646.input_text#}}\n\
+            <Assessment> \n{{#1711067578643.text#}}\n<Original Essay>\n{{#1711067409646.input_text#}}\n\
+            <Detailed Feedback>\n\n"
+        selected: false
+        title: LLM 3
+        type: llm
+        variables:
+        - value_selector:
+          - '1711067409646'
+          - input_text
+          variable: input_text
+        - value_selector:
+          - '1711067578643'
+          - text
+          variable: text
+        vision:
+          configs:
+            detail: high
+          enabled: true
+      dragging: false
+      height: 128
+      id: '1711067817657'
+      position:
+        x: 373.6116779900742
+        y: 2771.779169336793
+      positionAbsolute:
+        x: 373.6116779900742
+        y: 2771.779169336793
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        desc: Grade
+        model:
+          completion_params:
+            frequency_penalty: 0
+            max_tokens: 4096
+            presence_penalty: 0
+            temperature: 0.7
+            top_p: 1
+          mode: chat
+          name: gemini-1.5-flash-latest
+          provider: google
+        prompt_template:
+        - id: 02ba6f7f-9cf7-4433-bc9a-c28406243465
+          role: system
+          text: "Base on each criteria of the rubric provided, grade the assignment\
+            \ and assign a numerical grade from 1(very bad) to 10(very good).\n<Rubric>\
+            \ \n{{#1711067409646.rubric#}}\n<Detailed Feedback>\n{{#1711067817657.text#}}\n\
+            <Grade> "
+        selected: false
+        title: LLM 4
+        type: llm
+        variables:
+        - value_selector:
+          - '1711067578643'
+          - text
+          variable: direct_translation
+        - value_selector:
+          - '1711067817657'
+          - text
+          variable: problems
+        vision:
+          configs:
+            detail: high
+          enabled: true
+      dragging: false
+      height: 128
+      id: '1711068087661'
+      position:
+        x: 656.6116779900743
+        y: 2766.6969054463757
+      positionAbsolute:
+        x: 656.6116779900743
+        y: 2766.6969054463757
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        desc: ''
+        outputs:
+        - value_selector:
+          - '1720344804718'
+          - output
+          variable: output
+        selected: true
+        title: End
+        type: end
+      height: 90
+      id: '1711068257370'
+      position:
+        x: 656.6116779900743
+        y: 2953.7242166137225
+      positionAbsolute:
+        x: 656.6116779900743
+        y: 2953.7242166137225
+      selected: true
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        desc: ''
+        selected: false
+        template: '<h1> Grade </h1>
+
+          {{ arg1 }}
+
+          <h1> Topic Assessment </h1>
+
+          {{ arg2 }}
+
+          <h1> Detailed Feedback </h1>
+
+          {{ arg3 }}
+
+          '
+        title: Template
+        type: template-transform
+        variables:
+        - value_selector:
+          - '1711068087661'
+          - text
+          variable: arg1
+        - value_selector:
+          - '1711067578643'
+          - text
+          variable: arg2
+        - value_selector:
+          - '1711067817657'
+          - text
+          variable: arg3
+      height: 54
+      id: '1720344804718'
+      position:
+        x: 373.6116779900742
+        y: 2953.7242166137225
+      positionAbsolute:
+        x: 373.6116779900742
+        y: 2953.7242166137225
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    viewport:
+      x: 7.888504558740578
+      y: -3360.6849045776007
+      zoom: 1.3292768257796501
