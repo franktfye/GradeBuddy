@@ -1,13 +1,13 @@
 # GradeBuddy
  Meet the Grading Bot, a python script of LLM for providing efficient feedback on student assignments
 
-### Update: With the powerful workflow-based LLM development tool Dify, we can now leverage customized, high-quality LLMs to accurately grade student assignments, including essays.
+## Update: With the powerful workflow-based LLM development tool Dify, we can now leverage customized, high-quality LLMs to accurately grade student assignments, including essays.
 
-### To get started, simply set up Dify and import the pre-configured "Essay Grading Workflow.yml" file. Then, run the "dify-workflow.py" script, which utilizes the workflow API to streamline the process. The script will automatically generate a output CSV file containing all evaluations, complete with corresponding Student IDs.
+To get started, simply set up Dify and import the pre-configured "Essay Grading Workflow.yml" file. Then, run the "dify-workflow.py" script, which utilizes the workflow API to streamline the process. The script will automatically generate a output CSV file containing all evaluations, complete with corresponding Student IDs.
 
-### For more information, please refer to my blog: https://randomtalktheory.blogspot.com/2024/07/using-llm-workflow-to-evaluate-documents.html
-### Dify: https://github.com/langgenius/dify
-### Docker Desktop: https://docs.docker.com/desktop/install
+For more information, please refer to my blog: https://randomtalktheory.blogspot.com/2024/07/using-llm-workflow-to-evaluate-documents.html
+Dify: https://github.com/langgenius/dify
+Docker Desktop: https://docs.docker.com/desktop/install
 
  
 ## Getting Started
